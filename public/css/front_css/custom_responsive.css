@@ -1,0 +1,436 @@
+/*  Small devices (landscape phones, 576px and up) */
+
+@media (max-width: 767.68px) {
+    #side-wrapper {
+        width: 0 !important;
+        transition: width 0.25s ease-out;
+    }
+    #wrapper.toggled #side-wrapper {
+        width: 100% !important;
+        top: 47px;
+        position: relative;
+        transition: 1s;
+        box-shadow: none;
+    }
+    div#wrapper.toggled span.navbar-toggler-icon {
+        display: none;
+    }
+    #wrapper .welcome_text {
+        padding-left: 17px;
+    }
+    #wrapper.toggled .main_part {
+        display: none;
+    }
+    #wrapper .main_part {
+        height: auto;
+        min-height: unset;
+        position: absolute;
+        top: 47px;
+    }
+    #wrapper .main_part .card-section .card {
+        width: 100%;
+        margin-right: 0;
+    }
+    #wrapper .webview {
+        width: 100%;
+        left: 0;
+        background-color: white;
+    }
+    #logout_btn.toggled {
+        position: absolute;
+        top: 99px;
+        left: 65px;
+    }
+    #wrapper .main_part .new_btn {
+        margin-right: 0;
+    }
+    #wrapper #main-page-wrapper .main_part .color_card_section .card {
+        width: 100%;
+    }
+    #wrapper #main-page-wrapper .main_part .color_card_section .card .choose_color {
+        width: 97%;
+    }
+    .form_section .left_bg {
+        display: none;
+    }
+    .button_section .blue_btn {
+        margin-right: 16px;
+    }
+    main.page-cont {
+        margin: 0 !important;
+    }
+    .login_plan img {
+        max-width: unset !important;
+    }
+    .button_section-c {
+        float: unset !important;
+        margin: 0 auto;
+        width: 90%;
+    }
+    .card.mr-4 {
+        width: 100% !important;
+        margin-right: 0 !important;
+    }
+    .button_section-c .blue_btn {
+        margin-right: 0 !important;
+        margin-bottom: 17px;
+        max-width: unset !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    #load_item {
+        top: 314px;
+    }
+    .notification_part {
+        top: 72px;
+        right: unset;
+        left: 59px;
+    }
+    .form_section .right_part .logo img {
+        width: 100%;
+        max-width: 270px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    #load_item {
+        position: absolute;
+        top: 501px;
+        z-index: 1;
+        left: unset;
+        right: 0;
+    }
+    .notification_part {
+        top: 67px;
+        right: unset;
+        left: 61px;
+    }
+    .cont {
+        max-width: unset !important;
+        width: 94% !important;
+    }
+    .total {
+        max-width: unset !important;
+        width: 94% !important;
+    }
+}
+
+@media (min-width: 568px) and (max-width: 568.5px) {
+    #load_item {
+        position: absolute;
+        top: 453px;
+        z-index: 1;
+        left: unset;
+        right: 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    #wrapper .main_part {
+        top: 95px;
+    }
+    .notification_part {
+        top: 76px;
+        right: 142px;
+    }
+    #wrapper .main_part .card-section .card {
+        width: 47%;
+    }
+    #wrapper .main_part .new_btn {
+        margin-right: 0;
+    }
+    #wrapper .main_part .card-section .card.card_res {
+        margin-right: 0;
+    }
+    .card.mr-4 {
+        width: 100% !important;
+        margin-right: 0 !important;
+    }
+    .button_section-c .blue_btn {
+        margin-right: 0 !important;
+    }
+    .cont {
+        max-width: 480px;
+        width: 95% !important;
+    }
+    .cont,.total {
+        margin: 30px 20px 20px 20px;
+}
+}
+
+@media (min-width: 768px) {
+    #main-page-wrapper #menu-bar {
+        display: none !important;
+    }
+    .form_section .left_bg {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+/* @media (min-width:900px) {
+    .form_section .right_part .left_bg {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+} */
+
+@media (min-width: 992px) and (max-width: 1199.98px) {}
+
+@media (min-width: 1200px) {}
+
+@media (min-width: 1400px) {}
+
+@media (min-width: 1500px) {}
+
+@media only screen and (min-width:320px) and (max-width:767px) {
+    .t-c {
+        display: block;
+    }
+    section.whole {
+        margin: 0px;
+    }
+    .chart {
+        width: 100%;
+        float: left;
+        display: block;
+    }
+    .c-img {
+        width: 100%;
+        max-width: 135px;
+        margin: 0 auto;
+    }
+    .kc {
+        display: block;
+    }
+    button.fr {
+        width: 70%;
+        margin-bottom: 10px;
+        margin-left: 25px;
+    }    
+    button.btn.Change_btn.mb-lg-0.mb-3 {
+        margin-right: 15px;
+        width: 100%;
+        max-width: 150px;
+        margin: 0 auto;
+    }
+    input#apply_coupon_code {
+        max-width: 173px;
+    }
+    .bi,
+    .pm {
+        margin: 30px 20px 20px 15px;
+    }
+    .login_plan {
+        display: unset;
+    }
+}
+
+@media only screen and (min-width:768px) and (max-width:991px) {
+    section.whole {
+        margin: 0px;
+    }
+    .login_plan {
+        display: unset;
+    }
+  
+}
+@media only screen and (min-width:768px) and (max-width:790px) {
+button.fr {
+    background: #C4C4C4;
+    width: 80%;
+    max-width: 135px;
+    margin-bottom: 10px;
+}
+}
+
+@media only screen and (min-width:320px) and (max-width:374px) {
+    img.cc {
+        position: absolute;
+        bottom: 20px;
+        left: 235px;
+    }
+    input#b-inp,input#b-inp\ cvv {
+        width: 130px;
+    }
+    input#apply_coupon_code {
+        max-width: 155px;
+    }
+    .blue_btn-2 {
+        width: 90px;
+        min-width: 90px;
+    }
+    .cont,.total {
+        margin: 30px 20px 20px 15px;
+    }
+    img.cvv {
+        position: absolute;
+        bottom: 10px;
+        left: 238px;
+    }
+    h5#sp {
+        color: #179FD7;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    .button_lp .blue_btn {
+        width: 126px;
+        margin-right: 0px;
+    }
+    .button_lp .white_btn {
+        width: 126px;
+        margin-right: 10px;
+    }
+    button.fr {
+        width: 70%;
+        max-width: 140px;
+        margin-bottom: 10px;
+        margin-left: 25px;
+    }  
+    .Acc_Setting {
+        margin: 50px 20px 20px 20px;
+        font-size:13px                                                                                                 px;
+    }
+    img.tick {
+        position: absolute;
+        bottom: -26px;
+        left: 107px;
+    }
+}
+@media only screen and (min-width:355px) and (max-width:365px) {
+button.fr {
+    width: 70%;
+    max-width: 140px;
+    margin-bottom: 10px;
+    margin-left: 46px;
+}
+img.k-l {
+    width: 100%;
+    max-width: 150px;
+    margin-left: 38px;
+}
+}
+@media only screen and (min-width:375px) and (max-width:424px) {
+    img.cc {
+        position: absolute;
+        bottom: 20px;
+        left: 290px;
+    }
+    img.cvv {
+        position: absolute;
+        bottom: 10px;
+        left: 295px;
+    }
+    input#apply_coupon_code {
+        max-width: 175px;
+    }
+    .button_lp .blue_btn {
+        width: 155px;
+        margin-right: 0px;
+    }
+    .cont,.total {
+        margin: 30px 20px 20px 20px;
+    }
+    .blue_btn-2 {
+        width: 90px;
+        min-width: 115px;
+    }
+    .button_lp .white_btn {
+        width: 157px;
+        margin-right: 10px;
+    }
+    input#b-inp,input#b-inp\ cvv {
+        width: 157px;
+    }
+    button.fr {
+        width: 70%;
+        margin-bottom: 10px;
+        margin-left: 25px;
+    }  
+    img.tick {
+        position: absolute;
+        bottom: -26px;
+        left: 135px;
+    }
+    .button_lp {
+        max-width: 92% !important;
+    }
+}
+
+@media only screen and (min-width:425px) and (max-width:767px) {
+    .button_lp .blue_btn {
+        width: 170px;
+        margin-right: 0px;
+    }
+    .button_lp .white_btn {
+        width: 187px;
+        margin-right: 10px;
+    }
+    .cont,.total {
+        margin: 30px 20px 20px 20px;
+    }
+    input#b-inp,input#b-inp\ cvv {
+        width: 182px;
+    }
+    img.tick {
+        position: absolute;
+        bottom: -26px;
+        left: 158px;
+    }
+       .button_lp {
+        max-width: 92% !important;
+    }
+}
+@media only screen and (min-width:768px) and (max-width:990px) {
+    .t-c {
+         display: flex;
+        flex-direction: column;
+    }
+    img.tick {
+        position: absolute;
+        bottom: -26px;
+        left: 110px;
+    }
+       .button_lp {
+        max-width: 80% !important;
+    }
+
+}
+@media only screen and (min-width:991px) and (max-width:1023px) {
+
+    img.tick {
+        position: absolute;
+        bottom: -26px;
+        left: 165px;
+    }
+}
+@media only screen and (min-width:320px) and (max-width:374px) {
+.button_lp {
+    max-width: 92% !important;
+}
+}
+@media only screen and (min-width:1024px) and (max-width:1200px) {
+        .button_lp {
+        max-width: 75% !important;
+    }
+        .t-c {
+        display: block;  
+    }
+    .total-card {
+    margin: 0px 0px 20px 45px;
+    }
+    }
+    
+@media only screen and (max-width: 1440px){
+.form-group .toggle-password {
+    right: 10px;
+    bottom: 17px;
+}
+
+#wrapper .main_part .card-section .card{min-width: 150px;}
+
+} 

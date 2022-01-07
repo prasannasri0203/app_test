@@ -1,0 +1,872 @@
+<ngx-spinner></ngx-spinner>
+<script src=".././scripts/diagram-common.ts"></script>
+<style>
+    .e-symbolpalette {
+        display: block;
+    }
+</style>
+<div class="control-section">
+    <div style="width: 100%">
+        <div id="editor-space" class="sb-mobile-editor">
+            <div class="upper-nav">
+                <label (click)="openModal(template1)">{{filename}}</label>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                
+                <button class="navbar-toggler border-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/></svg>
+                    </span>
+                  </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <!-- <li class="nav-item">
+                        <form>
+                            <select id="chartvalue" class="form-control" name="chartvaluename" #chartvaluename="ngModel" value="{{getdata.chartvaluename}}" [(ngModel)]="getdata.chartvaluename" (change)="getchartname(getdata.chartvaluename)">
+                                <option *ngFor="let getname of flowchartlist" value="{{getname.id}}">{{getname.template_name}}</option>
+                            </select>   
+                        </form>
+                    </li> -->
+                    <li class="nav-item" *ngIf="hideallqrcode">
+                        <select id="zoomvalue" class="form-control" (change)="getzoomvalue()">
+                            <option value="100">100%</option>
+                            <option value="75">75%</option>
+                            <option value="50">50%</option>
+                            <option value="25">25%</option>
+                            <option value="Fit Window">Fit Window</option>
+                            <option value="Reset">Reset View</option>
+                        </select>   
+                    </li>
+                    <li class="nav-item border-right-cutom" *ngIf="hideallqrcode">
+                        <select id="Formatpanel" class="form-control" (change)="getformatvalue()">
+                            <option value="Show Panel">Format Panel</option>
+                            <option value="Outline">Outline</option>
+                        </select>   
+                    </li>
+                    <li class="nav-item" *ngIf="hideallqrcode">
+                        <a  (click)="zoomin()"  tooltip="Zoom In">
+                            <span class="glyphicon glyphicon-zoom-in"></span>                             
+                        </a>
+                    </li>
+                    <li class="nav-item" *ngIf="hideallqrcode">
+                        <a  (click)="zoomout()" tooltip="Zoom Out" placement="top">
+                            <span class="glyphicon glyphicon-zoom-out"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item" tooltip="Delete" placement="top" *ngIf="hideallqrcode">
+                        <a  (click)="deletechart()"  [ngClass]="showselectedtab == true ? 'enable' : 'disable'">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item mtp-5" *ngIf="hideallqrcode">
+                        <a  (click)="undo()" *ngIf="showundo" tooltip="Undo" placement="top">
+                            <i class="fa fa-mail-reply"></i>
+                        </a>
+                        <a *ngIf="!showundo" class="disable" tooltip="Undo" placement="top">
+                            <i class="fa fa-mail-reply"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item mtp-5" *ngIf="hideallqrcode">
+                        <a (click)="redo()" *ngIf="showredo" tooltip="Redo" placement="top">
+                            <i class="fa fa-mail-forward disable"></i>
+                        </a>
+                        <a *ngIf="!showredo" class="disable" tooltip="Redo" placement="top">
+                            <i class="fa fa-mail-forward"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item  mtp-5" *ngIf="hideallqrcode">
+                        <a  (click)="tofront()" *ngIf="showselectedtab" tooltip="ToFront" placement="top"> 
+                            <!-- <img src="assets/tofronticon.png" class="imgicon" > -->
+                            <img src="assets/angular/assets/Kaizen_hub/shape_rect.png" alt="rect">
+                        </a>
+                        <a *ngIf="!showselectedtab" class="disable"  tooltip="ToFront" placement="top">
+                            <!-- <img src="assets/Disabled_assets/To-Front-Icon.png" class="imgicon"> -->
+                            <img src="assets/angular/assets/Kaizen_hub/shape_rect.png" alt="rect">
+                        </a>
+                    </li>
+                    <li class="nav-item mtp-5" *ngIf="hideallqrcode">
+                        <a (click)="toback()" *ngIf="showselectedtab" tooltip="ToBack" placement="top">
+                            <!-- <img src="assets/tobackicon.png" class="imgicon"> -->
+                            <img src="assets/angular/assets/Kaizen_hub/shape_rect.png" alt="rect">
+                        </a>
+                        <a *ngIf="!showselectedtab" class="disable" tooltip="ToBack" placement="top">
+                            <!-- <img src="assets/Disabled_assets/To-Back-Icon.png" class="imgicon">                             -->
+                            <img src="assets/angular/assets/Kaizen_hub/shape_rect.png" alt="rect">
+                        </a>
+                    </li>
+                    <li class="nav-item  mtp-5 custom_icn" *ngIf="hideallqrcode">
+                        <a *ngIf="showselectedtab" tooltip="FillColor" placement="top">
+                            <!-- <img src="assets/fillcolor.png" class="imgicon" > -->
+                            <img src="assets/angular/assets/Kaizen_hub/paint.png" alt="rect">
+                            <input ejs-colorpicker mode="Palette" id='color-picker' type='color' (change)="changecolor($event)" />
+                        </a>
+                        <a *ngIf="!showselectedtab" class="disable" tooltip="FillColor" placement="top">
+                            <!-- <img src="assets/Disabled_assets/Fill-Color.png" class="imgicon" > -->
+                            <img src="assets/angular/assets/Kaizen_hub/paint.png" alt="rect">
+                            <input ejs-colorpicker mode="Palette" id='color-picker' type='color' (change)="changecolor($event)" />
+                        </a>
+                    </li>
+                    <li class="nav-item mtp-5 custom_icn" style="margin-top:8px !important" *ngIf="hideallqrcode">
+                        <a *ngIf="showselectedtab" tooltip="Linecolor" placement="top">
+                            <!-- <img src="assets/linecolor.png" class="imgicon"> -->
+                            <img src="assets/angular/assets/Kaizen_hub/edit_pen.png" alt="edit_pen">
+                            <input ejs-colorpicker mode="Palette" id='color-picker1' type='color' (change)="changebordercolor($event)" />
+                        </a>
+                        <a *ngIf="!showselectedtab" class="disable" tooltip="Linecolor" placement="top">
+                            <!-- <img src="assets/Disabled_assets/Linecolor.png" class="imgicon"> -->
+                            <img src="assets/angular/assets/Kaizen_hub/edit_pen.png" alt="edit_pen">
+                            <input ejs-colorpicker mode="Palette" id='color-picker1' type='color' (change)="changebordercolor($event)" />
+                        </a>
+                    </li>
+                    
+                    <!-- <li class="nav-item  mtp-5">
+                        <a *ngIf="showselectedtab" (click)="shadowfun()" tooltip="Shadow" placement="top">
+                            <img src="assets/shadow.png" class="imgicon">
+                        </a>
+                        <a *ngIf="!showselectedtab" class="disable" tooltip="Shadow" placement="top">
+                            <img src="assets/Disabled_assets/Shadow.png" class="imgicon">
+                        </a>
+                    </li> -->
+                    <!-- <li class="nav-item  mtp-5" *ngIf="hideallqrcode">
+                        <a (click)="openModal(template1)" tooltip="Save" placement="top">
+                            <img src="assets/angular/assets/Kaizen_hub/save 1.png" alt="save">
+                        </a>
+                    </li> -->
+                    <li class="nav-item  mtp-5" *ngIf="hideallqrcode">
+                        <a (click)="Enablefullscreen()" tooltip="Full Screen" placement="top">
+                            <span class="fa fa-expand"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item mtp-5"> 
+                        <select id="toolvalue" class="form-control" value="0" (change)="gettoolvalue(template2)">
+                            <option value="0">Insert</option>
+                            <option value="Addlink">Link ..</option>
+                            <option value="Image">
+                                Image ..
+                            </option>
+                            <option value="Text">Text ..</option>
+                        </select>   
+                    </li>
+                    <li class="nav-item mtp-5" id="hide_css">
+                        <div id="appearance" tooltip="Enter Text" placement="top" (click)="gotoTab(2)">
+                            <span title="Text" class="image-pattern-style" id="text">
+                                Text
+                            </span>
+                        </div>
+                        
+                    </li>
+                    <li class="nav-item mtp-5" *ngIf="showselectedtab" id="hide_css"> 
+                        <button class="linkbtn" (click)="addlink(template2)">Add Link</button>
+                    </li>
+                    <li *ngIf="hideallqrcode" id="hide_css">
+                        <ejs-uploader
+                                #defaultupload
+                                id="defaultfileupload"
+                                [asyncSettings]="path"
+                                [dropArea]="dropElement"
+                                (success)="onUploadSuccess($event)"
+                        ></ejs-uploader>
+                    </li>
+                    <div class="form-mobile">
+                        <form class="form-inline my-2 my-lg-0">
+                            <ejs-toolbar id='toolbarEditor' #toolbarEditor overflowMode='Scrollable' (clicked)='toolbarEditorClick($event)'>
+                                <e-items>
+                                    <e-item *ngIf="hideallqrcode" text='Save' (click)="openModal(template1)" type="Button" tooltipText='Save'>Save</e-item>
+                                    <e-item *ngIf="hideallqrcode">      
+                                        <ng-template #template>
+                                            <button ejs-dropdownbutton id="exportfile" [items]='exportTypes' class='fa fa-file' content='Export' (select)='onselect($event)'></button>
+                                        </ng-template>
+                                    </e-item>
+                                    <e-item type='Button' text='Save as PDF' *ngIf="hideallqrcode"> 
+                                    </e-item>
+                                    <e-item (click)="gotoback()" type="Button" text="Back">Back</e-item>
+                                    
+                                </e-items>
+                            </ejs-toolbar>
+                          </form>
+                    </div>
+                   </ul>
+                   <div class="form-desktop">
+                    <form class="form-inline my-2 my-lg-0">
+                        <ejs-toolbar id='toolbarEditor' #toolbarEditor overflowMode='Scrollable' (clicked)='toolbarEditorClick($event)'>
+                            <e-items>
+                                <e-item *ngIf="hideallqrcode" text='Save' (click)="openModal(template1)" type="Button" tooltipText='Save'>Save</e-item>
+                                <e-item *ngIf="hideallqrcode">      
+                                    <ng-template #template>
+                                        <button ejs-dropdownbutton id="exportfile" [items]='exportTypes' class='fa fa-file' content='Export' (select)='onselect($event)'></button>
+                                    </ng-template>
+                                </e-item>
+                                <e-item type='Button' text='Save as PDF' *ngIf="hideallqrcode"> 
+                                </e-item>
+                                <e-item (click)="gotoback()" type="Button" text="Back">Back</e-item>
+                                
+                            </e-items>
+                        </ejs-toolbar>
+                    </form>
+                </div>
+                </div>
+              </nav>
+
+        </div>  
+        <div class="sb-mobile-palette-bar">
+            <div id="palette-icon" style="float: right;" role="button" class="e-ddb-icons1 e-toggle-palette" (click)="addsidepalette()"></div>
+        </div>
+        <div id="palette-space" [ngClass]="[fullscreenmobilepalette]" *ngIf="hideallqrcode">
+            <!-- <ejs-symbolpalette id="symbolpalette" class="e-selected-style" [expandMode]='expandMode'   height="100%"
+            [palettes]='palettes' width="100%" [symbolHeight]=60 [symbolWidth]=60 [getsymboldefaults]="getSymbolDefaults"
+             [getSymbolInfo]='getSymbolInfo'  [enableSearch]=true
+             > -->
+             <ejs-symbolpalette id="symbolpalette" [enableSearch]=true class="e-selected-style" [expandMode]='expandMode' [palettes]='palettes' width="100%" [symbolHeight]=60 [symbolWidth]=60 [symbolMargin]='symbolMargin' [getSymbolInfo]='getSymbolInfo' [getNodeDefaults]='getSymbolDefaults' (paletteExpanding)='paletteExpanding($event)'>
+            </ejs-symbolpalette>
+            <ejs-accordion class="accmanual">
+                <e-accordionitems>
+                  <e-accordionitem>
+                    <ng-template #header>
+                        <div>Insert</div>
+                      </ng-template>
+                      <ng-template #content>
+                        <div class="disp_flex">
+                            <div title="Text" (click)="clicktext()" class="" id="text">
+                                <i class="fa fa-text-width"></i>
+                            </div>
+                            <div title="Image" (click)="clickimage()">
+                                <i class="fa fa-image"></i>
+                            </div>
+                        </div>
+                      </ng-template>
+                    </e-accordionitem>
+                </e-accordionitems>
+            </ejs-accordion>
+        </div>
+
+       
+        <div id="diagram-space" class="sb-mobile-diagram">
+            <div class="content-wrapper">
+                
+                <ejs-diagram #diagram id="diagram" width="100%" height="700px" [snapSettings]='snapSettings'
+                [getConnectorDefaults]='connDefaults' [getNodeDefaults]='nodeDefaults' (click)='clicks($event)' 
+                (dragEnter)="dragEnter($event)" (created)="diagramCreate($event)" (selectionChange)="selectionChange($event)"
+                [dataSourceSettings]='data1'  [contextMenuSettings]="contextMenuSettings" malihu-scrollbar>
+                    <!-- <e-nodes>
+                        <e-node id='NewIdea' [height]=60 [offsetX]=300 [offsetY]=80 [shape]='terminator'>
+                            <e-node-annotations>
+                                <e-node-annotation content='Place Order'>
+                                </e-node-annotation>
+                            </e-node-annotations>
+                        </e-node>
+                        <e-node id='Meeting' [height]=60 [offsetX]=300 [offsetY]=160 [shape]='process'>
+                            <e-node-annotations>
+                                <e-node-annotation content='Start Transaction'>
+                                </e-node-annotation>
+                            </e-node-annotations>
+                        </e-node>
+                        <e-node id='BoardDecision' [height]=60 [offsetX]=300 [offsetY]=240 [shape]='process'>
+                            <e-node-annotations>
+                                <e-node-annotation content='Verification'>
+                                </e-node-annotation>
+                            </e-node-annotations>
+                        </e-node>
+                        <e-node id='Project' [height]=60 [offsetX]=300 [offsetY]=330 [shape]='decision'>
+                            <e-node-annotations>
+                                <e-node-annotation content='Credit card valid?'>
+                                </e-node-annotation>
+                            </e-node-annotations>
+                        </e-node>
+                        <e-node id='End' [height]=60 [offsetX]=300 [offsetY]=430 [shape]='decision'>
+                            <e-node-annotations>
+                                <e-node-annotation content='Funds available?'>
+                                </e-node-annotation>
+                            </e-node-annotations>
+                        </e-node>
+                        <e-node id='node11' [height]=60 [offsetX]=530 [offsetY]=330 [shape]='process'>
+                            <e-node-annotations>
+                                <e-node-annotation content='Enter payment method'>
+                                </e-node-annotation>
+                            </e-node-annotations>
+                        </e-node>
+                        <e-node id='transcation_entered' [height]=60 [offsetX]=300 [offsetY]=630 [shape]='terminator'>
+                            <e-node-annotations>
+                                <e-node-annotation content='Log transaction'>
+                                </e-node-annotation>
+                            </e-node-annotations>
+                        </e-node>
+                        <e-node id='node12' [height]=60 [offsetX]=480 [offsetY]=630 [shape]='process'>
+                            <e-node-annotations>
+                                <e-node-annotation content='Reconcile the entries'>
+                                </e-node-annotation>
+                            </e-node-annotations>
+                        </e-node>
+                        <e-node id='transaction_completed' [height]=60 [offsetX]=300 [offsetY]=530 [shape]='process'>
+                            <e-node-annotations>
+                                <e-node-annotation content='Complete Transaction'>
+                                </e-node-annotation>
+                            </e-node-annotations>
+                        </e-node>
+                        <e-node id='Data' [height]=45 [offsetX]=110 [offsetY]=530 [shape]='data'>
+                            <e-node-annotations>
+                                <e-node-annotation content='Send e-mail' [margin]=margin>
+                                </e-node-annotation>
+                            </e-node-annotations>
+                        </e-node>
+                        <e-node id='node10' [height]=70 [offsetX]=475 [offsetY]=530 [shape]='directdata'>
+                            <e-node-annotations>
+                                <e-node-annotation content='Customer Database' [margin]='margin'>
+                                </e-node-annotation>
+                            </e-node-annotations>
+                        </e-node>
+                    </e-nodes>
+                    <e-connectors>
+                        <e-connector id='connector1' sourceID='NewIdea' targetID='Meeting'>
+                        </e-connector>
+                        <e-connector id='connector2' sourceID='Meeting' targetID='BoardDecision'>
+                        </e-connector>
+                        <e-connector id='connector3' sourceID='BoardDecision' targetID='Project'>
+                        </e-connector>
+                        <e-connector id='connector4' sourceID='Project' targetID='End'>
+                            <e-connector-annotations>
+                                <e-connector-annotation content='Yes' [style]=connAnnotStyle>
+                                </e-connector-annotation>
+                            </e-connector-annotations>
+                        </e-connector>
+                        <e-connector id='connector5' sourceID='End' targetID='transaction_completed'>
+                            <e-connector-annotations>
+                                <e-connector-annotation content='Yes' [style]=connAnnotStyle>
+                                </e-connector-annotation>
+                            </e-connector-annotations>
+                        </e-connector>
+                        <e-connector id='connector6' sourceID='transaction_completed' targetID='transcation_entered'>
+                        </e-connector>
+                        <e-connector id='connector7' sourceID='transaction_completed' targetID='Data'>
+                        </e-connector>
+                        <e-connector id='connector8' sourceID='transaction_completed' targetID='node10'>
+                        </e-connector>
+                        <e-connector id='connector9' sourceID='node11' targetID='Meeting' [segments]='segments'>
+                        </e-connector>
+                        <e-connector id='connector10' sourceID='End' targetID='node11' [segments]='segments1'>
+                            <e-connector-annotations>
+                                <e-connector-annotation content='No' [style]=connAnnotStyle>
+                                </e-connector-annotation>
+                            </e-connector-annotations>
+                        </e-connector>
+                        <e-connector id='connector11' sourceID='Project' targetID='node11'>
+                            <e-connector-annotations>
+                                <e-connector-annotation content='No' [style]=connAnnotStyle>
+                                </e-connector-annotation>
+                            </e-connector-annotations>
+                        </e-connector>
+                        <e-connector id='connector12' sourceID='transcation_entered' targetID='node12' [style]=strokeStyle>
+                        </e-connector>
+                    </e-connectors> -->
+                </ejs-diagram>
+            </div>
+        </div>
+        
+        <div *ngIf="showoutlinebox == 'dispblock'" [ngClass]="showoutlinebox" class="col-lg-4" style="width: 14%;
+        left: 240px;
+        bottom: 35px;
+        border: #eeeeee;
+        border-style: solid;
+        box-shadow: 0px 2px 2px rgb(0 0 0 / 30%);
+        background: #f7f7f7;
+        position: absolute;
+        height: 28%;">
+            <i class="fa fa-close" (click)="showoutlineclick()"></i>
+            <ejs-overview id="overview" width="100%" height="590px" sourceID="diagram" style="border-top: 1px solid gainsboro;overflow: visible;">
+            </ejs-overview>
+        </div>
+
+        <div [ngClass]="[fullscreeneditorpalette]" *ngIf="showpanel">
+            <div>
+                <div class="editor_tab"  *ngIf="showselectedtab">
+                    <tabset #Rightsidetabs>
+                      <tab heading="Style" id="tab1">
+                          <form>
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-4 checkboxrow">
+                                        <!-- <input [checked]="true" type="checkbox" (change)="showcolorbox($event)"/>&nbsp; -->
+                                        <p>Fill</p>
+                                    </div>
+                                    <!-- *ngIf="showfill" -->
+                                    <div class="col-8 rightcls" >
+                                        <input ejs-colorpicker mode="Palette" mode="Palette" id='color-picker3' type='color' name="fill" #fill="ngModel" [(ngModel)]="templatevaluestyle.fill" (change)="changecolor($event)"/>
+                                    </div>
+                                </div>
+                                <!--  *ngIf="showfill" -->
+                                <div class="row">
+                                    <div class="col-4 checkboxrow">
+                                        <!--  (change)="showgradientbox($event)" -->
+                                        <!-- <input [checked]="true" type="checkbox"/>&nbsp; -->
+                                        <p>Gradient</p>
+                                    </div>
+                                    <div class="col-8 rightcls disp_flex">
+                                        <select class="form-control" id="changegradientid" (change)="changegradient()">
+                                            <option>None</option>
+                                            <option>Radial</option>
+                                            <option>Linear</option>
+                                        </select>
+                                        <!--  *ngIf="showcolorpalette" -->
+                                        <input ejs-colorpicker mode="Palette" id='color-picker3' type='color' (change)="changegraidentcolor($event)"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 checkboxrow">
+                                        <!-- (change)="showlinecolorbox($event)" -->
+                                        <!-- <input  type="checkbox"  [checked]="true"/>&nbsp; -->
+                                        <p>Line</p>
+                                    </div>
+                                    <!--  *ngIf="showlinefill" -->
+                                    <div class="col-8 rightcls">
+                                        <input ejs-colorpicker mode="Palette" id='color-picker4' type='color' name="strokeColor" #strokeColor="ngModel" [(ngModel)]="templatevaluestyle.strokeColor" (change)="changebordercolor($event)"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 checkboxrow">
+                                        <p>LineWidth</p>
+                                        <!-- <select class="form-control" id="changeshapeborder" (change)="changeshapeborderfunc()">
+                                            <option>Path</option>
+                                            <option>Text</option>
+                                            <option>Image</option>
+                                            <option>Basic</option>
+                                            <option>Flow</option>
+                                            <option>Bpmn</option>
+                                            <option>Native</option>
+                                            <option>HTML</option>
+                                            <option>UMLActivity</option>
+                                        </select> -->
+                                    </div>
+                                    <div class="col-7 pt-r-3">
+                                        <input type="number" class="form-control" name="strokeWidth" #strokeWidth="ngModel" [(ngModel)]="templatevaluestyle.strokeWidth" class="form-control">
+                                        
+                                    </div>
+                                    <div class="col-1 pt-l-0">
+                                        <label>pt</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 disp_flex" style="white-space: nowrap;">
+                                        <p>Line Style</p>
+                                    </div>
+                                    <div class="col-8 rightcls">
+                                        <select class="form-control" id="changeborder" (change)="changeshapeborder()">
+                                            <option value="">Solid</option>
+                                            <option value="5,5">Dashed</option>
+                                            <option value="3,3">Dotted (1)</option>
+                                            <option value="2,2">Dotted (2)</option>
+                                            <option value="1,1">Dotted (3)</option>
+                                        </select>   
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 checkboxrow">
+                                       <P>Opacity</P>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="number" class="form-control" name="opacity" #opacity="ngModel" [(ngModel)]="templatevaluestyle.opacity" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                      </tab>
+                      <tab heading="Arrange" id="tab2">
+                        <form>
+                            <div class="form">
+                                <div class="row">
+                                    <!-- <div class="col-6">
+                                        <button class="sidebtn" (click)="tofront()">To Front</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="sidebtn" (click)="toback()">To Back</button>
+                                    </div> -->
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Size</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" name="height" #height="ngModel" [(ngModel)]="templatevalue.height" class="form-control">
+                                        <span>Height</span>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" name="width" #width="ngModel" [(ngModel)]="templatevalue.width" class="form-control"> 
+                                        <span>Width</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Position</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="form-control" name="offsetX" #offsetX="ngModel" [(ngModel)]="templatevalue.offsetX">
+                                        <span>Left</span>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="form-control" name="offsetY" #offsetY="ngModel" [(ngModel)]="templatevalue.offsetY"> 
+                                        <span>Top</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Angle</p>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="number" class="form-control" name="rotateAngle" #rotateAngle="ngModel" [(ngModel)]="templatevalue.rotateAngle">
+                                    </div>
+                                </div>
+                                <div class="row" style="justify-content: center;">
+                                    <div class="col-12">
+                                        <button class="sidebtn fill-width" (click)="changerotate()">Rotate by 90 Degree</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Flip</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <button class="sidebtn" (click)="changeflip('Vertical')">Vertical</button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button class="sidebtn" (click)="changeflip('Horizontal')">Horizontal</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                      </tab>
+                      <tab heading="Text" id="tab3">
+                          <div class="row">
+                            <div class="col-12">
+                                <p>Font</p>
+                          </div>
+                              <div class="col-12">
+                                    <select class="form-control" value="templatevaluestyle.fontFamily" id="changefont" (change)="changefontfunc()">
+                                        <option value="Helvetica">Helvetica</option>
+                                        <option value="Veranda">Veranda</option>
+                                        <option value="Times New Roman">Times New Roman</option>
+                                        <option value="Georgia">Georgia</option>
+                                        <option value="Arial">Arial</option>
+                                    </select>   
+                                </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-8">
+                                <button class="sidebtn" (click)="clickbold()">
+                                    <img src="assets/angular/assets/bold.png" class="imgicon1"/>
+                                </button>
+                                <button class="sidebtn" (click)="clickitalic()">
+                                    <img src="assets/angular/assets/italic.png" class="imgicon1">
+                                </button>
+                                <button class="sidebtn" (click)="clickunderline()">
+                                    <img src="assets/angular/assets/underline.png" class="imgicon1">
+                                </button>
+                                <button class="sidebtn" (click)="clickcenteralign()">
+                                    <img src="assets/angular/assets/centeralign.png" class="imgicon1">
+                                </button>
+                            </div>
+                            <div class="col-4 disp_flex">
+                                <input type="number" name="fontSize" #fontSize="ngModel" class="form-control" [(ngModel)]="tempannotation.fontSize">
+                                <label>pt</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-12">
+                                <button class="sidebtn" (click)="clickleftalign()">
+                                    <img src="assets/angular/assets/leftalign.png" class="imgicon"/>
+                                </button>
+                                <button class="sidebtn" (click)="clickrightalign()">
+                                    <img src="assets/angular/assets/rightalign.png" class="imgicon">
+                                </button>
+                                <button class="sidebtn" (click)="clicktopalign()">
+                                    <img src="assets/angular/assets/topalign.png" class="imgicon">
+                                </button>
+                                <button class="sidebtn" (click)="clickmiddlealign()">
+                                    <img src="assets/angular/assets/middlealign.png" class="imgicon">
+                                </button>
+                                <button class="sidebtn" (click)="clickbottomalign()">
+                                    <img src="assets/angular/assets/bottomalign.png" class="imgicon">
+                                </button>
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-6">
+                                <p>Font Color</p>
+                              </div>    
+                              <div class="col-6 rightcls">
+                                <input ejs-colorpicker mode="Palette" id='color-picker5' type='color' name="color" #color="ngModel" [(ngModel)]="tempannotation.color" (change)="changefontcolor($event)"/>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-8">
+                              <p>Background Color</p>
+                            </div>    
+                            <div class="col-4 rightcls">
+                              <input ejs-colorpicker mode="Palette" id='color-picker6' type='color' name="fill" #fill="ngModel" [(ngModel)]="tempannotation.fill" (change)="changebackcolor($event)"/>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-8">
+                              <p>Border Color</p>
+                            </div>    
+                            <div class="col-4 rightcls">
+                              <input ejs-colorpicker mode="Palette" id='color-picker7' type='color' name="strokeColor" #strokeColor="ngModel" [(ngModel)]="tempannotation.strokeColor" (change)="changefontbordercolor($event)"/>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-8">
+                              <p>Opacity</p>
+                          </div>
+                          <div class="col-4 disp_flex">
+                              <input type="number" name="opacity" #opacity="ngModel" class="form-control" [(ngModel)]="tempannotation.opacity">
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 pt-r-0">
+                              <p>Top</p>
+                            </div>
+                            <div class="col-3 pt-l-0">
+                                <input type="number" name="top" #top="ngModel" class="form-control" [(ngModel)]="tempmargin.top">
+                            </div>
+                            <div class="col-3  pt-r-0">
+                                <p>Bottom</p>
+                              </div>
+                              <div class="col-3 pt-l-0">
+                                  <input type="number" name="bottom" #bottom="ngModel" class="form-control" [(ngModel)]="tempmargin.bottom">
+                              </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 pt-r-0">
+                              <p>Left</p>
+                            </div>
+                            <div class="col-3 pt-l-0">
+                                <input type="number" name="left" #left="ngModel" class="form-control" [(ngModel)]="tempmargin.left">
+                            </div>
+                            <div class="col-3  pt-r-0">
+                                <p>Right</p>
+                              </div>
+                              <div class="col-3 pt-l-0">
+                                  <input type="number" name="right" #right="ngModel" class="form-control" [(ngModel)]="tempmargin.right">
+                              </div>
+                        </div>
+                      </tab>
+                    </tabset>
+                </div>
+                <div class="editor_tab">
+                    <tabset *ngIf="!showselectedtab">
+                        <tab heading="Diagram" id="tab4">
+                            <div class="row">
+                                <div class="col-6 disp_flex">
+                                    <!-- <input  type="checkbox" (change)="showbackgroundgridcolor($event)" [checked]="true"/>&nbsp; -->
+                                    <p>Grid</p>
+                                </div>
+                                <!--  *ngIf="showgridcolorpalette" -->
+                                <div class="col-6 rightcls">
+                                    <input ejs-colorpicker mode="Palette" id='color-picker8' type='color' (change)="changegridcolor($event)"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 disp_flex">
+                                    <!-- <input  type="checkbox" (change)="showgridbackgroundcolor($event)" [checked]="true"/>&nbsp; -->
+                                    <p>Background</p>
+                                </div>
+                                <!--  *ngIf="showgridbackground" -->
+                                <div class="col-6 rightcls">
+                                    <input ejs-colorpicker mode="Palette" id='color-picker9' name="backgroundColor" #backgroundColor="ngModel" [(ngModel)]="diagram.backgroundColor" type='color' (change)="changegridbackground($event)"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>Orientation</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type='radio' name="orientation" (change)="changebackgroundorientation($event,'Landscape')">&nbsp;
+                                    <label>Landscape</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="radio" name="orientation" (change)="changebackgroundorientation($event,'Portrait')">&nbsp; 
+                                    <label>Portrait</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="radio" name="orientation" (change)="changebackgroundorientation($event,'Default')">&nbsp; 
+                                    <label>Default</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>Page Size</p>
+                                </div>
+                                <div class="col-12">
+                                    <select class="form-control" id="changesize" (change)="changepagesize()">
+                                        <option value="841,1189">A0 (841mm * 1189mm)</option>
+                                        <option value="549,841">A1 (549mm * 841mm)</option>
+                                        <option value="420,549">A2 (420mm * 549mm)</option>
+                                        <option value="297,420">A3 (297mm * 420mm)</option>
+                                        <option value="210,297">A4 (210mm * 297mm)</option>
+                                        <option value="148,210">A5 (148mm * 210mm)</option>
+                                        <option value="105,148">A6 (105mm * 148mm)</option>
+                                        <option value="74,105">A7 (74mm * 105mm)</option>
+                                        <option value="250,353">B4 (250mm * 353mm)</option>
+                                        <option value="176,250">B5 (176mm * 250mm)</option>
+                                        <option value="1600,900">16 : 9 (1600 * 900)</option>
+                                        <option value="1920,1200">16 : 10 (1920 * 1200)</option>
+                                        <option value="1600,1200">4 : 3 (1600 * 1200)</option>
+                                    </select>   
+                                </div>
+                            </div>
+                            
+                        </tab>
+                    </tabset>
+                    <br>
+                    <tabset #CommentsTab *ngIf="hidenotesandcomments">
+                        <tab heading="Comments" id="tab5" *ngIf="hidecomment">
+                            <div>
+                            <div *ngIf="getallcomments.length > 0" class="commentsection" malihu-scrollbar>
+                                <div class="row othercmts" *ngFor="let comment of getusercomments;"> 
+                                    <div class="col-2">
+                                        <img src="assets/angular/assets/usericon.png" class="imgicon"/>
+                                    </div>
+                                    <div class="col-10 pl-0px">
+                                        <label>{{comment.user.name}}</label>
+                                        <span>{{comment.updated_at | date : 'medium'}}</span>
+                                    </div>
+                                    <div class="col-10 offset-md-1">
+                                        <p>{{comment.comments}}</p>
+                                    </div>
+                                </div>
+                              
+                                <div class="row owncmts" *ngFor="let owncmt of getowncomments"> 
+                                    <div class="col-2">
+                                        <img src="assets/angular/assets/usericon.png" class="imgicon"/>
+                                    </div>
+                                    <div class="col-10 pl-0px">
+                                        <label>{{owncmt.user.name}}</label>
+                                        <span>{{owncmt.updated_at | date : 'medium'}}</span>
+                                    </div>
+                                    <div class="col-10 offset-md-1">
+                                        <p>{{owncmt.comments}}</p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="commentsection_nocmt" *ngIf="getallcomments.length == 0">
+                                <div class="no_cmt">
+                                    <p>No Comments Found</p>
+                                </div>
+                            </div>
+                            <div class="replysection">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form name="commentform" #commentform="ngForm" class="add_reply">
+                                            <!-- <input type="text" class="form-control"  placeholder="Add Reply..."> -->
+                                            <textarea name="reply" placeholder="Add Comment.."  cols="3" rows="3"name="commentinput" #commentinput="ngModel" [(ngModel)]="commentdata.commentinput"></textarea>
+                                            <button (click)="sendcomment(commentform)">Send</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </tab>
+                        <tab heading="Notes" id="tab6" *ngIf="showselectedtab">
+                            <div class="row"> 
+                                <div class="col-12">
+                                    <form  name="noteform" #noteform="ngForm">
+                                        <textarea class="form-control" placeholder="Add notes here.." name="note" #note="ngModel" [(ngModel)]=notedata.note></textarea>
+                                        <div class="form-inline glyphicon">
+                                            <button class="btn btn-info" (click)="addnote(noteform)">Add</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="Map Flowchart" id="tab7" *ngIf="hidecomment && hideallqrcode">
+                            <div class="row"> 
+                                <div class="col-12">
+                                    <form  *ngIf="flowchartlist.length > 0">
+                                        <select id="chartvalue" class="form-control" aria-placeholder="--SELECT--" name="chartvaluename" #chartvaluename="ngModel" value="0" [(ngModel)]="getdata.chartvaluename" (change)="getchartname(getdata.chartvaluename)">
+                                            <option value="0">--Select--</option>
+                                            <option *ngFor="let getname of flowchartlist" value="{{getname.id}}">{{getname.template_name}}</option>
+                                        </select>   
+                                    </form>
+                                    <p *ngIf="flowchartlist.length == 0">No Flowcharts Found</p>
+                                </div>
+                                <div class="col-12"  *ngIf="flowchartlistwith.length == 0">
+                                    <p>No Mapping Charts Found</p>
+                                </div>
+                                <div class="col-12" *ngIf="flowchartlistwith.length > 0">
+                                    <!--  target="_blank" href="http://127.0.0.1:8000/flowchart/?user=20" -->
+                                    
+                                    <a *ngFor="let charts of flowchartlistwith" (click)="map_navigate(charts.id)" class="fclink">{{charts.template_name}}</a>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template1>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Rename Document</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col-12">
+                    <label>Enter your new document name</label>
+                </div>
+                <div class="col-12">
+                    <input type="text" class="form-control" value="{{filename}}" (input)="changefilename($event)">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 rightcls">
+                    <button class="btn btn-info" (click)="download();draftflowchart();">Draft</button>&nbsp;&nbsp;
+                    <button class="btn btn-success" (click)="download();saveflowchart();">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #template2>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Add Hyperlink</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form *ngIf="showselectedtab">
+            <div class="row">
+                <div class="col-12">
+                    <label>Enter Link here</label>
+                </div>
+                <div class="col-12">
+                    <input type="text" class="form-control" value="{{linkname}}" placeholder="http://www.example.com" (input)="changelinkname($event)">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 rightcls">
+                    <button class="btn btn-success" (click)="savelink(linkname)">Insert</button>
+                </div>
+            </div>
+        </form>
+        <form *ngIf="!showselectedtab">
+            <div class="row">
+                <div class="col-12">
+                    <label>Please choose a shape / Image to add link..</label>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>

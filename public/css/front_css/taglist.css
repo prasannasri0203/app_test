@@ -1,0 +1,77 @@
+.icon-close {
+	display		: inline-block;
+	width		: 16px;
+	height		: 16px;
+	background	: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC42/Ixj3wAAAKVJREFUOE+VkAEKhDAQA/3/t4QDXyByj+ll2m3t2VR0INhms4G6pJQGOVwOedPgcsibBpdDVwPW2BlgViJdQY+MnakYSvDKKGd8AUQAWgnnYqU97vMCICjBJwR5GXS+LwAND6lyhJ3R/VHBJlW2sDO63xdoUN/8DUH/T+YFBCXo3/z3Y/U9C/qLNCxX8MooZ9pOO4RgWK4wK5F5wWtZ842s+Vxp+QHxxC/F3JqzBgAAAABJRU5ErkJggg==');
+}
+
+.taglist {
+	overflow	: hidden;
+	display		: block;
+	padding		: 6px 6px 0;
+	border		: 1px solid #ccc;
+	border-radius : 3px;
+	font-family : Arial, sans-serif;
+	font-size	: 13px;
+	line-height	: 16px;
+	white-space	: nowrap;
+}
+
+.taglist-highlight {
+	border		: 1px solid #158daa;
+	box-shadow	: 0px 0px 1px 1px #60b0dd;
+}
+
+.taglist-tag, .taglist-input {
+	float		: left;
+	display		: inline-table;
+	margin-bottom : 6px;
+}
+
+.taglist-tag {
+	max-width		: 300px;
+	padding			: 3px 4px;
+	border			: 1px solid transparent;
+	border-radius	: 2px;
+	margin-right	: 5px;
+	background		: #ddd;
+	text-overflow 	: ellipsis;
+}
+
+.taglist-tag-highlight {
+	background		: #bbb;
+	border-color	: black;
+	color			: #333;
+}
+
+.taglist-tag-text, .taglist-tag-remove {
+	display 		: table-cell;
+	vertical-align	: middle;
+}
+
+.taglist-tag-text {
+	padding-right	: 4px;
+}
+
+.taglist-tag-remove {
+	background		: #158daa;
+	cursor			: pointer;
+	opacity			: 0.5;
+}
+
+.taglist-tag-remove:hover, .taglist-tag-highlight .taglist-tag-remove {
+	opacity			: 1;
+}
+
+.taglist-input {
+	min-width		: 200px;
+	height			: 24px;
+	padding			: 4px;
+	border			: 0 !important;
+	overflow		: hidden;
+	outline			: none;
+	resize			: none;
+	font-family		: Arial, sans-serif;
+	font-size		: 13px;
+	line-height		: 16px;
+}
